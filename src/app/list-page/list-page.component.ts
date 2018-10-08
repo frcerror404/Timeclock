@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { PinDialog } from '../modals/pin/pin.component';
 
 @Component({
   selector: 'app-list-page',
@@ -8,36 +10,44 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 })
 export class ListPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
   }
 
-  todo = [
-    'Get to work',
-    'Pick up groceries',
-    'Go home',
-    'Fall asleep'
+  success = true;
+
+  NotHere = [
+    'Chad Krause',
+    'Jeff Parks',
+    'Dan Story',
+    'Luckett'
   ];
 
-  done = [
-    'Get up',
-    'Brush teeth',
-    'Take a shower',
-    'Check e-mail',
-    'Walk dog'
+  Here = [
+    'Jacob Dara',
+    'Becky',
   ];
 
   drop(event: CdkDragDrop<string[]>) {
-    console.log(event);
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
+      
+      const pinDialogRef = this.dialog.open(PinDialog, { width: '400px', data: {name: event.item.data, success: this.success}});
+      pinDialogRef.afterClosed().subscribe(result => {
+        this.success = result;
+        console.log(result);
+        if(!!result) {
+          transferArrayItem(event.previousContainer.data,
+            event.container.data,
+            event.previousIndex,
+            event.currentIndex);
+        }
+      });
+        
     }
   }
 
 }
+

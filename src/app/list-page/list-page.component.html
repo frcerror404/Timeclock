@@ -4,8 +4,8 @@
     <div class="container">
       <h2>Not Here</h2>
     
-      <cdk-drop #todoList [data]="todo" [connectedTo]="[doneList]" class="list" (dropped)="drop($event)">
-        <div class="box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+      <cdk-drop #todoList [data]="NotHere" [connectedTo]="[doneList]" class="list" (dropped)="drop($event)">
+        <div [cdkDragData]="person" class="box" *ngFor="let person of NotHere" cdkDrag>{{person}}</div>
       </cdk-drop>
     </div>
   </div>
@@ -13,9 +13,19 @@
     <div class="container">
       <h2>Here</h2>
     
-      <cdk-drop #doneList [data]="done" [connectedTo]="[todoList]" class="list" (dropped)="drop($event)">
-        <div class="box" *ngFor="let item of done" cdkDrag>{{item}}</div>
-      </cdk-drop>
+      <!--<cdk-drop #doneList [data]="Here" [connectedTo]="[todoList]" class="list" (dropped)="drop($event)">
+        <div class="box" *ngFor="let item of Here" cdkDrag>{{item}}</div>
+      </cdk-drop>-->
+    
+      <cdk-drop #doneList [data]="Here" [connectedTo]="[todoList]" class="list" (dropped)="drop($event)">
+          <mat-list *ngFor="let person of Here" cdkDrag [cdkDragData]="person">
+            <mat-list-item>
+              <mat-icon mat-list-icon>folder</mat-icon>
+              <h4 mat-line>{{person}}</h4>
+            </mat-list-item>
+          </mat-list>
+        </cdk-drop>
+      
     </div>
   </div>
 

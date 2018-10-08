@@ -1,0 +1,21 @@
+.numpad {
+    font-size: 24px;
+}
+
+.pin {
+    font-size: 24px;
+    width: 150px;
+    margin: 0 30%;
+}
+
+.action {
+    width: 40%;
+    height: 50px;
+    font-size: 20px;
+    margin: auto;
+}
+
+.action-buttons {
+    padding-top: 2em;
+    padding-bottom: 1em;
+}

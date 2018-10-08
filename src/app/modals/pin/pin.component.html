@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Welcome, {{data.name}}</h1>
+<div mat-dialog-content>
+    <p>To sign in, please enter your pin</p>
+
+  <mat-form-field class="pin">
+      <input class="numpad" type="password" matInput maxlength="4" placeholder="PIN" [(ngModel)]="pinInput">
+      <mat-hint align="end">{{pinInput.length}} / 4</mat-hint>
+  </mat-form-field>
+
+  <mat-grid-list cols="3" rowHeight="50px">
+      <mat-grid-tile
+          *ngFor="let key of keys"
+          [colspan]="key.cols"
+          (click)="keypress(key.num)"
+          class="numpad"
+          matButton
+          matRipple>
+          
+        {{key.num}}
+      </mat-grid-tile>
+
+      <mat-grid-tile class="numpad" [colspan]="1" (click)="keypress('back')" matRipple> <mat-icon>backspace</mat-icon> </mat-grid-tile>
+      <mat-grid-tile class="numpad" [colspan]="1" (click)="keypress('0')" matRipple> 0 </mat-grid-tile>
+      <mat-grid-tile class="numpad" [colspan]="1" (click)="keypress('clear')" matRipple><mat-icon>clear</mat-icon></mat-grid-tile>
+    </mat-grid-list>
+</div>
+
+<div mat-dialog-actions class='action-buttons'>
+  <button class="action" color="warn" mat-raised-button (click)="Cancel()">Cancel</button>
+  <button class="action green" mat-raised-button (click)="Enter()">Enter</button>
+</div>
